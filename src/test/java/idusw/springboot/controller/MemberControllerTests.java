@@ -7,7 +7,7 @@ import idusw.springboot.entity.MemberEntity;
 import idusw.springboot.repository.MemberRepository;
 import idusw.springboot.service.MemberService;
 import jakarta.transaction.Transactional;
-import lombok.extern.log4j.Log4j2;
+//import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-@Log4j2
+//@Log4j2
 public class MemberControllerTests {
     @Autowired
     MemberService memberService;
@@ -49,7 +49,7 @@ public class MemberControllerTests {
     @Test
     void initializeMember() {
         // Integer 데이터 흐름, Lambda 식 - 함수형 언어의 특징을 활용
-        IntStream.rangeClosed(1, 33).forEach(i -> {
+        IntStream.rangeClosed(1, 101).forEach(i -> {
             MemberEntity member = MemberEntity.builder()
                     .seq(Long.valueOf(i))
                     .email("email" + i + "@induk.ac.kr")
@@ -75,7 +75,7 @@ public class MemberControllerTests {
 
     @Test
     public void testPageList() {
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(9).size(3).build();
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(9).perPage(3).build();
         PageResultDTO<Member, MemberEntity> resultDTO =memberService.getList(pageRequestDTO);
         //print records in page
         /*for(Member member : resultDTO.getDtoList())

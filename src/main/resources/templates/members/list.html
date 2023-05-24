@@ -190,7 +190,11 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr th:each="member : ${list}">
+                                       <!--
+                                       <tr th:each="member : ${list}">
+                                       -->
+                                       <!-- model 객체에 에트리뷰트롤 설정된 PageResultDTO 객체의 getDtoList() 호출 -->
+                                       <tr th:each="member : ${result.dtoList}">
                                             <td>[[${member.seq}]]</td>
                                             <td>[[${member.email}]]</td>
                                             <td>[[${member.name}]]</td>
