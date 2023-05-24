@@ -7,7 +7,7 @@ import idusw.springboot.entity.MemberEntity;
 import idusw.springboot.repository.MemberRepository;
 import idusw.springboot.service.MemberService;
 import jakarta.transaction.Transactional;
-//import lombok.extern.log4j.Log4j2;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-//@Log4j2
+@Log4j2
 public class MemberControllerTests {
     @Autowired
     MemberService memberService;
@@ -75,13 +75,17 @@ public class MemberControllerTests {
 
     @Test
     public void testPageList() {
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(9).perPage(3).build();
-        PageResultDTO<Member, MemberEntity> resultDTO =memberService.getList(pageRequestDTO);
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(5) // 선택한 page
+                .perPage(10) // record 수
+                .perPagination(3) //페이지 번호 표시 개수
+                .build();
+        PageResultDTO<Member, MemberEntity> resultDTO = memberService.getList(pageRequestDTO);
         //print records in page
-        /*for(Member member : resultDTO.getDtoList())
+        for(Member member : resultDTO.getDtoList())
             System.out.println(member);
         /**
-         * boolean prev는  lombok으로 generation할 때 getter는 isPrev(), setter는 setPrev()를 생성함
+         * boolean prev 는  lombok 으로 generation 할 때 getter 는 isPrev(), setter는 setPrev()를 생성함
          * int totlaPage는 getTotalPgae(), setter setTotalPage()
          *
          * @Data == @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
@@ -89,10 +93,11 @@ public class MemberControllerTests {
         System.out.println("Prev : " + resultDTO.isNext());
         System.out.println("Next : " + resultDTO.isNext());
         System.out.println("Total Page  : " + resultDTO.getTotalPage());
-        resultDTO.getPageList().forEach(i -> System.out.println(i));
+        //Java Lambda :  ->,  함수형 인터페이스, Method Chaining방식
+        //resultDTO.getPageList().forEach(i -> System.out.println(i));
 
         for(Integer i : resultDTO.getPageList())
-            System.out.println(i);
+            System.out.format("%3d",i);
     }
 
 }

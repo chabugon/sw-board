@@ -71,7 +71,7 @@ public class MemberController {
                 .build();
         PageResultDTO<Member, MemberEntity> resultDTO =memberService.getList(pageRequestDTO);
         if((resultDTO != null)){
-            model.addAttribute("result", resultDTO);
+            model.addAttribute("result", resultDTO); // page number list name(key -unique), attribute value 으로 구성
             return "/members/list";
         }else
             return "/errors/404";

@@ -41,7 +41,7 @@ public class PageResultDTO<DTO, EN> {
         start = tempEnd - (perPagination -1);
         end = (totalPage > tempEnd? tempEnd: totalPage);
 
-        prev = start >1; //  1보다 크면 true, 작으면 false
+        prev = start > 1; //  1보다 크면 true, 작으면 false
         next = totalPage > tempEnd;
 
         pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList()); // get pageNumber list

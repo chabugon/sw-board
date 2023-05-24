@@ -9,10 +9,10 @@ import org.springframework.data.domain.Sort;
 
 @Builder
 @AllArgsConstructor
-@Data // == @getter @setter @RequiredArgsConstructor @ToSTring @EqulsAndHashcode
+@Data // == @getter @setter @RequiredArgsConstructor @ToString @EqualsAndHashcode
 
 /**
- * Page 요청 객체<br>
+ * Page 요청 객체 <br>
  * Page, Pageable, PageRequest 객체가 연고나있음
  */
 public class PageRequestDTO {
