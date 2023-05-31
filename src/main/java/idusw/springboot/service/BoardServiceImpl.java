@@ -1,6 +1,8 @@
 package idusw.springboot.service;
 
 import idusw.springboot.domain.Board;
+import idusw.springboot.domain.PageRequestDTO;
+import idusw.springboot.entity.BoardEntity;
 import idusw.springboot.repository.BoardRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,13 @@ public class BoardServiceImpl implements BoardService {
         this.boardRepository = boardRepository;
     }
     @Override
-    public int registerBoard(Board board) {
+    public int registerBoard(Board dto) {
+        BoardEntity entity = dtoToEntity(dto);
 
-        return 0;
+        if(boardRepository.save(entity) !=null) //저장 성공
+            return 1;
+        else
+            return 0;
     }
 
     @Override
@@ -24,7 +30,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<Board> findBoardAll() {
+    public List<Board> findBoardAll(PageRequestDTO pageRequestDTO) {
         return null;
     }
 
