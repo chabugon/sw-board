@@ -11,18 +11,20 @@ import java.util.List;
 @Service
 public class BoardServiceImpl implements BoardService {
     private BoardRepository boardRepository;
-    public BoardServiceImpl(BoardRepository boardRepository){
+    public BoardServiceImpl(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     }
     @Override
-    public int registerBoard(Board dto) {
-        BoardEntity entity = dtoToEntity(dto);
+    public int registerBoard(Board board) {
 
-        if(boardRepository.save(entity) !=null) //저장 성공
+        BoardEntity entity = dtoToEntity(board);
+
+        if(boardRepository.save(entity) != null) // 저장 성공
             return 1;
         else
             return 0;
     }
+
 
     @Override
     public Board findBoardById(Board board) {

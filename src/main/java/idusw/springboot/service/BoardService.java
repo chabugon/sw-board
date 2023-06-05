@@ -9,14 +9,10 @@ import java.util.List;
 
 public interface BoardService {
     int registerBoard(Board board);
-
-    Board findBoardById(Board board); // id (유일한 식별자) - bno 로 조회
-
-    List<Board> findBoardAll(PageRequestDTO pageRequestDTO); // 게시물 목록 출력 (페이지 처리나 정렬, 필터 ==? 검색)
-
+    Board findBoardById(Board board); // 게시물의 ID (유일한 식별자) - 즉, bno로 조회
+    List<Board> findBoardAll(PageRequestDTO pageRequestDTO); // 게시물 목록 출력 (페이지 처리, 정렬, 필터 ==? 검색)
     int updateBoard(Board board); // 게시물 정보
-
-    int deleteBoard(Board board); // 게시물이 ID 값만
+    int deleteBoard(Board board); // 게시물의 ID 값만
 
     default BoardEntity dtoToEntity(Board dto) { // dto객체를 entity 객체로 변환 : service -> repository
         MemberEntity member = MemberEntity.builder()
