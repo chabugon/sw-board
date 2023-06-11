@@ -1,12 +1,15 @@
 package idusw.springboot.service;
 
+import com.querydsl.core.BooleanBuilder;
 import idusw.springboot.domain.Board;
+import idusw.springboot.domain.Member;
 import idusw.springboot.domain.PageRequestDTO;
 import idusw.springboot.domain.PageResultDTO;
 import idusw.springboot.entity.BoardEntity;
 import idusw.springboot.entity.MemberEntity;
 import idusw.springboot.repository.BoardRepository;
 import idusw.springboot.repository.ReplyRepository;
+import idusw.springboot.repository.search.SearchBoardRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -66,4 +69,5 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.deleteById(board.getBno()); // 게시물 삭제
         return 0;
     }
+
 }

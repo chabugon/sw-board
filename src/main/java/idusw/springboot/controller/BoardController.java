@@ -3,6 +3,8 @@ package idusw.springboot.controller;
 import idusw.springboot.domain.Board;
 import idusw.springboot.domain.Member;
 import idusw.springboot.domain.PageRequestDTO;
+import idusw.springboot.domain.PageResultDTO;
+import idusw.springboot.entity.BoardEntity;
 import idusw.springboot.service.BoardService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -60,7 +62,7 @@ public class BoardController {
         // Long bno 값을 사용하는 방식을 Board 객체에 bno를 설정하여 사용하는 방식으로 변경
         Board board = boardService.findBoardById(Board.builder().bno(bno).build());
         boardService.updateBoard(board);
-        model.addAttribute("dto", boardService.findBoardById(board));
+        model.addAttribute("board", boardService.findBoardById(board));
         return "/boards/detail";
     }
 
@@ -100,4 +102,33 @@ public class BoardController {
         else
             return "/errors/404"; // 게시물 등록 예외 처리
     }
+
+    @GetMapping("/logout")
+    public String logoutMember() {
+        session.invalidate();
+        return "redirect:/";
+    }
+
+//    @GetMapping(value = {"","/"})
+//    public String listBoardsPagination(@RequestParam(value="page", required = false, defaultValue = "1") int page,
+//                                       @RequestParam(value="perPage", required = false, defaultValue = "10") int perPage,
+//                                       @RequestParam(value="perPagination", required = false, defaultValue = "5") int perPagination,
+//                                       @RequestParam(value="type", required = false, defaultValue = "e")  String type,
+//                                       @RequestParam(value="keyword", required = false, defaultValue = "@") String keyword,
+//                                       Model model) {
+//        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+//                .page(page)
+//                .perPage(perPage)
+//                .perPagination(perPagination)
+//                .type(type)
+//                .keyword(keyword)
+//                .build();
+//        PageResultDTO<Board, Object[]> resultDTO =boardService.findBoardAll(pageRequestDTO);
+//        if((resultDTO != null)){
+//            model.addAttribute("result", resultDTO); // page number list name(key -unique), attribute value 으로 구성
+//            return "/members/list";
+//        }else
+//            return "/errors/404";
+//    }
+
 }
