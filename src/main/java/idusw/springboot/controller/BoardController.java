@@ -51,11 +51,11 @@ public class BoardController {
         return "redirect:/members/login-form"; // 로그인 안된 상태인 경우
     }
 
-    @GetMapping("")
-    public String getBoards(@ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, Model model) { // 중간 본 수정
-        model.addAttribute("list", boardService.findBoardAll(pageRequestDTO));
-        return "/boards/list";
-    }
+//    @GetMapping("")
+//    public String getBoards(@ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, Model model) { // 중간 본 수정
+//        model.addAttribute("list", boardService.findBoardAll(pageRequestDTO));
+//        return "/boards/list";
+//    }
 
     @GetMapping("/{bno}")
     public String getBoardByBno(@PathVariable("bno") Long bno, Model model) {
@@ -109,26 +109,32 @@ public class BoardController {
         return "redirect:/";
     }
 
-//    @GetMapping(value = {"","/"})
-//    public String listBoardsPagination(@RequestParam(value="page", required = false, defaultValue = "1") int page,
-//                                       @RequestParam(value="perPage", required = false, defaultValue = "10") int perPage,
-//                                       @RequestParam(value="perPagination", required = false, defaultValue = "5") int perPagination,
-//                                       @RequestParam(value="type", required = false, defaultValue = "e")  String type,
-//                                       @RequestParam(value="keyword", required = false, defaultValue = "@") String keyword,
-//                                       Model model) {
-//        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-//                .page(page)
-//                .perPage(perPage)
-//                .perPagination(perPagination)
-//                .type(type)
-//                .keyword(keyword)
-//                .build();
-//        PageResultDTO<Board, Object[]> resultDTO =boardService.findBoardAll(pageRequestDTO);
-//        if((resultDTO != null)){
-//            model.addAttribute("result", resultDTO); // page number list name(key -unique), attribute value 으로 구성
-//            return "/members/list";
-//        }else
-//            return "/errors/404";
-//    }
+    @GetMapping(value = {"","/"})
+    public String listBoardsPagination(@ModelAttribute("pageRequestDTO")
+                                        @RequestParam(value="page", required = false, defaultValue = "1") int page,
+                                       @RequestParam(value="perPage", required = false, defaultValue = "8") int perPage,
+                                       @RequestParam(value="perPagination", required = false, defaultValue = "5") int perPagination,
+                                       @RequestParam(value="type", required = false, defaultValue = "e")  String type,
+                                       Model model) {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(page)
+                .perPage(perPage)
+                .perPagination(perPagination)
+                .type(type)
+                .build();
+        PageResultDTO<Board, Object[]> resultDTO = boardService.findBoardAll(pageRequestDTO);
+        if((resultDTO != null)){
+            model.addAttribute("result", resultDTO);// page number list name(key -unique), attribute value 으로 구성
+            model.addAttribute("list", boardService.findBoardAll(pageRequestDTO));
+            return "/boards/list";
+        }else
+            return "/errors/404";
+    }
 
+
+//    @GetMapping("/")
+//    public String getBoards(@ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, Model model) { // 중간 본 수정
+//        model.addAttribute("list", boardService.findBoardAll(pageRequestDTO));
+//        return "/boards/list";
+//    }
 }

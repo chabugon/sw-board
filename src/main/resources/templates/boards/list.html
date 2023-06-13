@@ -13,7 +13,8 @@
 </head>
 <body>
 <!-- Responsive navbar-->
-<div th:replace="~{/boards/blog-fragment :: topbar}"></div><!-- Page header with logo and tagline-->
+    <div th:replace="~{/boards/blog-fragment :: topbar}"></div>
+<!-- Page header with logo and tagline-->
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
         <div class="text-center my-5">
@@ -27,13 +28,11 @@
     <div class="row">
         <!-- Blog entries-->
         <div class="col-lg-8">
-
             <!-- Nested row for non-featured blog posts-->
             <div class="row">
-                <div class="col-lg-6">
                     <!-- Blog post-->
-                    <div class="card mb-4" th:each="board : ${list.dtoList}">
-                        <a th:href="@{'/boards/' + ${board.bno}}"></a>
+                <div class="card mb-4" th:each="board : ${list.dtoList}">
+                        <a href="#!"></a>
                         <div class="card-body">
                             <div class="small text-muted"><span th:text="${board.regDate}" ></span></div>
                             <h2 class="card-title h4"><span th:text="${board.title}" ></span></h2>
@@ -41,43 +40,47 @@
                             <a class="btn btn-primary" th:href="@{'/boards/' + ${board.bno}}">Read more →</a>
                         </div>
                     </div>
-
+            </div>
+             Pagination
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+                        <span th:text="${result.curPage}"></span> to [[${result.totalPage}]] of [[${result.totalRows}]] entries
+                    </div></div>
+                <div class="col-sm-12 col-md-7">
+                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                        <ul class="pagination">
+                            <li th:if="${result.prev}" th:class="'paginate_button page-item previous ' + ${result.prev?'':'disabled'}" id="dataTable_previous">
+                                <a href="#" th:href="@{/boards(page=${result.start - 1}, perPage=${result.perPage})}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                            <li th:class="'paginate_button page-item ' + ${result.curPage == page?'active':''}" th:each="page : ${result.pageList}">
+                                <a href="#" th:href="@{/boards(page=${page}, perPage=${result.perPage})}" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a></li>
+                            <li th:if="${result.next}" th:class="'paginate_button page-item next ' + ${result.next?'':'disabled'} " id="dataTable_next">
+                                <a href="#" th:href="@{/boards(page=${result.end + 1}, perPage=${result.perPage})}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <!-- Pagination-->
-            <nav aria-label="Pagination">
-                <hr class="my-0" />
-                <ul class="pagination justify-content-center my-4">
-                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
-                    <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">Older</a></li>
-                </ul>
-            </nav>
         </div>
         <!-- Side widgets-->
         <div class="col-lg-4">
             <!-- Search widget-->
-            <div class="card mb-4">
-                <div class="card-header">Search</div>
-                <form id="search-form" class="mb-4" th:action="@{'/boards'}" th:method="get">
-                    <div class="card-body">
-                        <div class="input-group">
-                            <select class="form-control" name="type">
-                                <option selected="selected">-------</option>
-                                <option value="t">title</option>
-                                <option value="c">content</option>
-                                <option value="w">writer</option>
-                            </select>
-                            <input class="form-control" type="text" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search">
-                            <button class="btn btn-primary" type="button" id="button-search" onclick="document.getElementById('search-form').submit();">Go!</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+<!--            <div class="card mb-4">-->
+<!--                <div class="card-header">Search</div>-->
+<!--                <form id="search-form" class="mb-4" th:action="@{'/boards'}" th:method="get">-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="input-group">-->
+<!--                            <select class="form-control" name="type">-->
+<!--                                <option selected="selected">-&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--                                <option value="t">title</option>-->
+<!--                                <option value="c">content</option>-->
+<!--                                <option value="w">writer</option>-->
+<!--                            </select>-->
+<!--                            <input class="form-control" type="text" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search">-->
+<!--                            <button class="btn btn-primary" type="button" id="button-search" onclick="document.getElementById('search-form').submit();">Go!</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
             <!-- Categories widget-->
             <div class="card mb-4">
                 <div class="card-header">Categories</div>
