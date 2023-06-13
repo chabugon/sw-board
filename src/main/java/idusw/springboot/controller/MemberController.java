@@ -127,4 +127,14 @@ public class MemberController {
     public String forgotMemberPassword() { // 비밀번호(갱신) -> service -> repository -> service -> controller
         return "redirect:/"; // 루트로 이동
     }
+
+    @PostMapping("/check-email")
+    @ResponseBody
+    public int checkEmail(@RequestParam("email") String email) {
+
+        Member member = Member.builder().email(email).build();
+        int cnt = memberService.checkEmail(member);
+        System.out.println("check-email" + email + ":" + cnt) ;
+        return cnt;
+    }
 }

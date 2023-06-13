@@ -168,7 +168,14 @@ public class MemberServiceImpl implements MemberService {
         }
         booleanBuilder.and(conditionBuilder);
         return booleanBuilder;
+    }
 
-
+    @Override
+    public int checkEmail(Member m) {
+        List<MemberEntity> memberEntityList = memberRepository.getMemberEntitiesByEmail(m.getEmail());
+        if(memberentityList.size() > 0)
+            return 1;
+        else
+            retrun 0;
     }
 }
