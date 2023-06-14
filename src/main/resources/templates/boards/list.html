@@ -13,8 +13,7 @@
 </head>
 <body>
 <!-- Responsive navbar-->
-    <div th:replace="~{/boards/blog-fragment :: topbar}"></div>
-<!-- Page header with logo and tagline-->
+<div th:replace="~{/boards/blog-fragment :: topbar}"></div><!-- Page header with logo and tagline-->
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
         <div class="text-center my-5">
@@ -28,11 +27,13 @@
     <div class="row">
         <!-- Blog entries-->
         <div class="col-lg-8">
+
             <!-- Nested row for non-featured blog posts-->
             <div class="row">
+                <div class="col-lg-6">
                     <!-- Blog post-->
-                <div class="card mb-4" th:each="board : ${list.dtoList}">
-                        <a href="#!"></a>
+                    <div class="card mb-4" th:each="board : ${list.dtoList}">
+                        <a th:href="@{'/boards/' + ${board.bno}}"></a>
                         <div class="card-body">
                             <div class="small text-muted"><span th:text="${board.regDate}" ></span></div>
                             <h2 class="card-title h4"><span th:text="${board.title}" ></span></h2>
@@ -40,8 +41,10 @@
                             <a class="btn btn-primary" th:href="@{'/boards/' + ${board.bno}}">Read more →</a>
                         </div>
                     </div>
+
+                </div>
             </div>
-             Pagination
+            <!-- Pagination-->
             <div class="row">
                 <div class="col-sm-12 col-md-5">
                     <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">

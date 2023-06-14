@@ -77,7 +77,7 @@ public class MemberController {
             return "/errors/404";
     }
 
-    @GetMapping("/register-form")
+    @GetMapping("/register")
     public String getRegisterForm(Model model) { // form 요청 -> view (template engine)
         model.addAttribute("member", Member.builder().build());
         return "/members/register";

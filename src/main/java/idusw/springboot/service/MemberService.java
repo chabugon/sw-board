@@ -41,4 +41,6 @@ public interface MemberService {
                 .build();
         return dto;
     }
+
+    int checkEmail(Member m);
 }
