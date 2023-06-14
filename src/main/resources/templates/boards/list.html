@@ -30,7 +30,6 @@
 
             <!-- Nested row for non-featured blog posts-->
             <div class="row">
-                <div class="col-lg-6">
                     <!-- Blog post-->
                     <div class="card mb-4" th:each="board : ${list.dtoList}">
                         <a th:href="@{'/boards/' + ${board.bno}}"></a>
@@ -38,11 +37,10 @@
                             <div class="small text-muted"><span th:text="${board.regDate}" ></span></div>
                             <h2 class="card-title h4"><span th:text="${board.title}" ></span></h2>
                             <p class="card-text"><span th:text="${board.content}" ></span></p>
+                            <p class="reply-count"><span th:text="${result.curPage}"></span></p>
                             <a class="btn btn-primary" th:href="@{'/boards/' + ${board.bno}}">Read more →</a>
                         </div>
                     </div>
-
-                </div>
             </div>
             <!-- Pagination-->
             <div class="row">

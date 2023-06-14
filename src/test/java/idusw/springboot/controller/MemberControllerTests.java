@@ -49,12 +49,14 @@ public class MemberControllerTests {
     @Test
     void initializeMember() {
         // Integer 데이터 흐름, Lambda 식 - 함수형 언어의 특징을 활용
-        IntStream.rangeClosed(1, 101).forEach(i -> {
+        IntStream.rangeClosed(1, 50).forEach(i -> {
             MemberEntity member = MemberEntity.builder()
                     .seq(Long.valueOf(i))
                     .email("email" + i + "@induk.ac.kr")
                     .pw("pw" + i)
                     .name("name" + i)
+                    .phone("010-" +"000" + i + "-0000")
+                    .address("서울"+ i)
                     .build();
             memberRepository.save(member);
         });
@@ -63,9 +65,11 @@ public class MemberControllerTests {
     @Test
     void createMember() {
         Member member = Member.builder()
-                .email("13@13.com")
-                .name("13")
-                .pw("13")
+                .email("root201912060@induk.ac.kr")
+                .name("차부곤")
+                .pw("1234")
+                .phone("01000000000")
+                .address("경기도 남양주")
                 .build();
         if(memberService.create(member) > 0 ) // 정상적으로 레코드의 변화가 발생하는 경우 영향받는 레코드 수를 반환
             System.out.println("등록 성공");
